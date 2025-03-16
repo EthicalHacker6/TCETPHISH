@@ -164,9 +164,9 @@ kill_pid() {
 # Check for a newer release
 check_update(){
 	echo -ne "\n${GREEN}[${WHITE}+${GREEN}]${CYAN} Checking for update : "
-	relase_url='https://api.github.com/repos/EthicalHacker6/TCETPHISH/releases/latest'
+	relase_url='https://api.github.com/repos/htr-tech/zphisher/releases/latest'
 	new_version=$(curl -s "${relase_url}" | grep '"tag_name":' | awk -F\" '{print $4}')
-	tarball_url="https://github.com/EthicalHacker6/TCETPHISH/archive/refs/tags/${new_version}.tar.gz"
+	tarball_url="https://github.com/htr-tech/zphisher/archive/refs/tags/${new_version}.tar.gz"
 
 	if [[ $new_version != $__version__ ]]; then
 		echo -ne "${ORANGE}update found\n"${WHITE}
@@ -174,15 +174,15 @@ check_update(){
 		echo -ne "\n${GREEN}[${WHITE}+${GREEN}]${ORANGE} Downloading Update..."
 		pushd "$HOME" > /dev/null 2>&1
 		curl --silent --insecure --fail --retry-connrefused \
-		--retry 3 --retry-delay 2 --location --output ".TCETPHISH.tar.gz" "${tarball_url}"
+		--retry 3 --retry-delay 2 --location --output ".zphisher.tar.gz" "${tarball_url}"
 
-		if [[ -e ".TCETPHISH.tar.gz" ]]; then
-			tar -xf .TCETPHISH.tar.gz -C "$BASE_DIR" --strip-components 1 > /dev/null 2>&1
+		if [[ -e ".zphisher.tar.gz" ]]; then
+			tar -xf .zphisher.tar.gz -C "$BASE_DIR" --strip-components 1 > /dev/null 2>&1
 			[ $? -ne 0 ] && { echo -e "\n\n${RED}[${WHITE}!${RED}]${RED} Error occured while extracting."; reset_color; exit 1; }
-			rm -f .TCETPHISH.tar.gz
+			rm -f .zphisher.tar.gz
 			popd > /dev/null 2>&1
 			{ sleep 3; clear; banner_small; }
-			echo -ne "\n${GREEN}[${WHITE}+${GREEN}] Successfully updated! Run TCETPHISH again\n\n"${WHITE}
+			echo -ne "\n${GREEN}[${WHITE}+${GREEN}] Successfully updated! Run zphisher again\n\n"${WHITE}
 			{ reset_color ; exit 1; }
 		else
 			echo -e "\n${RED}[${WHITE}!${RED}]${RED} Error occured while downloading."
